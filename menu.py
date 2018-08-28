@@ -2,6 +2,7 @@ import cadastro
 import os.path
 import sys
 import os
+import time
 
 SetColorGreen = lambda: os.system('color 0a')
 pause = lambda: os.system('pause')
@@ -30,6 +31,26 @@ def register(): #Register a user
 	clear()
 	menu()
 
+def user_page(username):
+	print("\t Hi " + username + "!\n")
+	print(" 1 - Save a password")
+	print(" 2 - See my passwords")
+	print(" 3 - Get a password")
+	print(" 4 - Return to menu\n")
+	op = int(input(" Option: "))
+	if op == 1:
+		clear()
+		#savePass(username)
+	elif op == 2:
+		clear()
+		#seePass(username)
+	elif op == 3:
+		clear()
+		#getPass(username)
+	elif op == 4:
+		clear()
+		menu()
+	
 def login(): #login
 	print('\t Login\n')
 	_login = input('Login: ')
@@ -39,7 +60,7 @@ def login(): #login
 			print("\nThis user doesn't exist. Please, try another one..\n\n")
 			pause()
 			clear()
-			register()
+			login()
 		password = input('Password: ')
 		if cadastro.verify_pass(_login, password) == False:
 			print('\nIncorrect login or password\n\n')
@@ -47,8 +68,9 @@ def login(): #login
 			clear()
 			login()
 		else:
-			#################### Implementar #######################
-			return False
+			#Open user page (Correct password)
+			clear()
+			user_page(_login)
 	else:
 		print('\nThere are no registered users\n\n')
 		pause()
