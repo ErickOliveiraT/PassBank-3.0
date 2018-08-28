@@ -40,7 +40,7 @@ def user_page(username):
 	op = int(input(" Option: "))
 	if op == 1:
 		clear()
-		#savePass(username)
+		#Password(username)
 	elif op == 2:
 		clear()
 		#seePass(username)
