@@ -16,3 +16,7 @@ def decode(text):
 
 def getMD5(text):
 	return hashlib.md5(text.encode('utf-8')).hexdigest()
+
+#to = 'gAAAAABbhsIVE1t22SWPTNxE2IulifIHTpG0W_6PVO1WWPjYfNQQSEWOPYpNemOcx1aaAFdPeNsAqEomLG_OdoXBIq_P0lJ2SQ=='
+#plain = decode(bytes(to,'utf-8'))
+#print(plain)

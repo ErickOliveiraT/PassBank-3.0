@@ -31,22 +31,61 @@ def register(): #Register a user
 	clear()
 	menu()
 
+def registerPassword(username):
+	print('\t Register Password\n')
+	description = input(" Description: ")
+	password = input(" Password: ")
+	cadastro.savePass(username, bytes(password, 'utf-8'), description)
+	print('\n Password save successfully\n\n')
+	pause()
+	clear()
+	user_page(username)
+
+def getPass(username):
+	print('\t Get Password\n')
+	description = input(' Description: ')
+	returned = cadastro.searchPass(username, description)
+	if returned == False:
+		print(' There is no password with this description!\n\n')
+		pause()
+		clear()
+		user_page(username)
+	else:
+		clear()
+		print('\t Get Password\n')
+		print(' Description: ' + description)
+		print(' Password: ' + returned + '\n\n')
+		pause()
+		clear()
+		user_page(username)
+
 def user_page(username):
 	print("\t Hi " + username + "!\n")
 	print(" 1 - Save a password")
 	print(" 2 - See my passwords")
 	print(" 3 - Get a password")
-	print(" 4 - Return to menu\n")
+	print(" 4 - Logout\n")
 	op = int(input(" Option: "))
-	if op == 1:
+	if op == 2:
 		clear()
-		#Password(username)
-	elif op == 2:
+		print('\t See my Passwords\n')
+		flag = cadastro.seePasswords(username)
+		if flag == True:
+			print('\n')
+			pause()
+			clear()
+			user_page(username)
+		else:
+			print(' There is no saved passwords for this user!\n')
+			pause()
+			clear()
+			user_page(username)
+	elif op == 1:
 		clear()
-		#seePass(username)
+		registerPassword(username)
 	elif op == 3:
 		clear()
-		#getPass(username)
+		getPass(username)
 	elif op == 4:
 		clear()
 		menu()
