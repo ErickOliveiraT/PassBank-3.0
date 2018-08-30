@@ -4,19 +4,22 @@ import crypto
 import csv
 
 def save(login,password): #save login and password (users, not others) in a csv file
-    already_exists = os.path.isfile('cadastro.csv')
+    already_exists = os.path.isfile('enc_data.csv')
     _encoded = crypto.getMD5(password)
     if already_exists:
+        crypto.decodeDatabase()
         _id = operations.lineCounter()
         table = open('cadastro.csv', 'a')
         table.write(str(_id) + ',' + login + ',' + _encoded + '\n')
         table.close()
+        crypto.encodeDatabase()
     else:
         with open('cadastro.csv', 'a', newline='') as table:
             fieldnames = ['id', 'login', 'password']
             writer = csv.DictWriter(table, fieldnames=fieldnames)
             writer.writeheader()
             writer.writerow({'id': '1', 'login': login, 'password': _encoded})
+        crypto.encodeDatabase()
 
 def savePass(username, password, description): #save description and password (not users)
     archive_name = username + '.csv'
@@ -69,20 +72,26 @@ def searchPass(username, description): #search a password by its description
         return False
 
 def verify_user(user): #verify if an user exists
+    crypto.decodeDatabase()
     with open('cadastro.csv', 'r') as table:
         data = csv.reader(table)
         for line in data:
             aux = str(line[1])
             if aux == user:
+                crypto.encodeDatabase()
                 return True
+        crypto.encodeDatabase()
         return False
 
 def verify_pass(user, password): #verify if a password is correct
+    crypto.decodeDatabase()
     password = crypto.getMD5(password)
     with open('cadastro.csv', 'r') as table:
         data = csv.reader(table)
         for line in data:
             if str(line[1]) == user:
                 if str(line[2]) == password:
+                    crypto.encodeDatabase()
                     return True
+        crypto.encodeDatabase()
         return False

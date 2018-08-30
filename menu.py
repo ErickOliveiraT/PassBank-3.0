@@ -11,7 +11,7 @@ clear = lambda: os.system('cls')
 def register(): #Register a user
 	print('\t Register user\n')
 	login = input('Login: ')
-	already_exists = os.path.isfile('cadastro.csv')
+	already_exists = os.path.isfile('enc_data.csv')
 	if already_exists:
 		if cadastro.verify_user(login):
 			print('\nThis login already exits! Please, try another one..\n\n')
@@ -26,6 +26,7 @@ def register(): #Register a user
 		clear()
 		register()
 	cadastro.save(login,password)
+	crypto.encodeDatabase()
 	print('\nUser successfully registered\n\n')
 	pause()
 	clear()
@@ -93,7 +94,7 @@ def user_page(username):
 def login(): #login
 	print('\t Login\n')
 	_login = input('Login: ')
-	already_exists = os.path.isfile('cadastro.csv')
+	already_exists = os.path.isfile('enc_data.csv')
 	if already_exists:
 		if cadastro.verify_user(_login) == False:
 			print("\nThis user doesn't exist. Please, try another one..\n\n")
