@@ -3,7 +3,6 @@ import os.path
 import crypto
 import sys
 import os
-import time
 
 SetColorGreen = lambda: os.system('color 0a')
 pause = lambda: os.system('pause')
@@ -11,7 +10,12 @@ clear = lambda: os.system('cls')
 
 def register(): #Register a user
 	print('\t Register user\n')
-	login = input('Login: ')
+	login = input(' Login: ')
+	if login == 'data':
+		print("\n Your user can't be 'data'...\n\n")
+		pause()
+		clear()
+		register()
 	already_exists = os.path.isfile('enc_data.csv')
 	if already_exists:
 		if cadastro.verify_user(login):
@@ -19,15 +23,15 @@ def register(): #Register a user
 			pause()
 			clear()
 			register()
-	password = input('Password: ')
-	pass2 = input('Confirm password: ')
+	password = input(' Password: ')
+	pass2 = input(' Confirm password: ')
 	if password != pass2:
-		print("\nPasswords don't match! Try Again..\n")
+		print("\n Passwords don't match! Try Again..\n")
 		pause()
 		clear()
 		register()
 	cadastro.save(login,password)
-	print('\nUser successfully registered\n\n')
+	print('\n User successfully registered\n\n')
 	pause()
 	clear()
 	menu()
