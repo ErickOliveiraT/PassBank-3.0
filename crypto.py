@@ -1,12 +1,10 @@
 from cryptography.fernet import Fernet
 import hashlib
+import time
 import sys
 import os
 
-currupt = lambda: os.system("tesseract srpfXZckJOIMfykmRtPyibat9 cadastro.csv enc_data.csv")
-normalize = lambda: os.system("tesseract srpfXZckJOIMfykmRtPyibat9 enc_data.csv cadastro.csv")
-delete1 = lambda: os.system("del cadastro.csv")
-delete2 = lambda: os.system("del enc_data.csv")
+global command #to use in prompt
 
 def encode(text): #Encodes passwords using Fernet method
 	#key = Fernet.generate_key() #To generate a new key
@@ -44,7 +42,7 @@ def getSHA1sum(): #SHA1 sum of tesseract encoder
 	        buf = afile.read(BLOCKSIZE)
 	return hasher.hexdigest()
 
-def validateHash():
+def validateHash(): #check if tesseract has intentionally modified
 	md5sum = getMD5sum()
 	sha1sum = getSHA1sum()
 
@@ -53,20 +51,46 @@ def validateHash():
 	else:
 		return False
 
-def encodeDatabase():
+def encodeDatabase(): #encode users database
 	flag = validateHash()
-	if flag == False:
-		sys.exit()
+	if flag == True:
+		command = 'tesseract srpfXZckJOIMfykmRtPyibat9 '
+		command += 'cadastro.csv enc_data.csv'
+		os.system(command)
+		command = 'del cadastro.csv'
+		os.system(command)
+		command = ''
 	else:
-		currupt()
-		delete1()
+		sys.exit()
 
-def decodeDatabase():
+def decodeDatabase(): #decodeu users database
 	flag = validateHash()
-	if flag == False:
-		sys.exit()
+	if flag == True:
+		command = 'tesseract srpfXZckJOIMfykmRtPyibat9 '
+		command += 'enc_data.csv cadastro.csv'
+		os.system(command)
+		command = 'del enc_data.csv'
+		os.system(command)
+		command = ''
 	else:
-		normalize()
-		delete2()
+		sys.exit()
 
-#encodeDatabase()
+def encodeUserDatabase(username): #encode user database of saved passwords and description
+	archive_name = username + '.csv'
+	command = 'tesseract srpfXZckJOIMfykmRtPyibat9 '
+	command += archive_name + ' ' + 'enc_'
+	command += username + '.csv'
+	os.system(command)
+	command = 'del ' + username + '.csv'
+	os.system(command)
+	command = ''
+
+def decodeUserDatabase(username): #decode user database of saved passwords and description
+	archive_name = username + '.csv'
+	command = 'tesseract srpfXZckJOIMfykmRtPyibat9 '
+	command += 'enc_' + username + '.csv '
+	command += username + '.csv'
+	os.system(command)
+	command = 'del enc_' + username + '.csv'
+	os.system(command)
+	command = ''

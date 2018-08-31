@@ -1,5 +1,6 @@
 import cadastro
 import os.path
+import crypto
 import sys
 import os
 import time
@@ -26,7 +27,6 @@ def register(): #Register a user
 		clear()
 		register()
 	cadastro.save(login,password)
-	crypto.encodeDatabase()
 	print('\nUser successfully registered\n\n')
 	pause()
 	clear()
@@ -107,8 +107,7 @@ def login(): #login
 			pause()
 			clear()
 			login()
-		else:
-			#Open user page (Correct password)
+		else: #Open user page (Correct password)
 			clear()
 			user_page(_login)
 	else:
