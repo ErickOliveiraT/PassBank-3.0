@@ -75,21 +75,29 @@ def decodeDatabase(): #decodeu users database
 		sys.exit()
 
 def encodeUserDatabase(username): #encode user database of saved passwords and description
-	archive_name = username + '.csv'
-	command = 'tesseract srpfXZckJOIMfykmRtPyibat9 '
-	command += archive_name + ' ' + 'enc_'
-	command += username + '.csv'
-	os.system(command)
-	command = 'del ' + username + '.csv'
-	os.system(command)
-	command = ''
+	flag = validateHash()
+	if flag == True:
+		archive_name = username + '.csv'
+		command = 'tesseract srpfXZckJOIMfykmRtPyibat9 '
+		command += archive_name + ' ' + 'enc_'
+		command += username + '.csv'
+		os.system(command)
+		command = 'del ' + username + '.csv'
+		os.system(command)
+		command = ''
+	else:
+		sys.exit()
 
 def decodeUserDatabase(username): #decode user database of saved passwords and description
-	archive_name = username + '.csv'
-	command = 'tesseract srpfXZckJOIMfykmRtPyibat9 '
-	command += 'enc_' + username + '.csv '
-	command += username + '.csv'
-	os.system(command)
-	command = 'del enc_' + username + '.csv'
-	os.system(command)
-	command = ''
+	flag = validateHash()
+	if flag == True:
+		archive_name = username + '.csv'
+		command = 'tesseract srpfXZckJOIMfykmRtPyibat9 '
+		command += 'enc_' + username + '.csv '
+		command += username + '.csv'
+		os.system(command)
+		command = 'del enc_' + username + '.csv'
+		os.system(command)
+		command = ''
+	else:
+		sys.exit()
