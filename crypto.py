@@ -1,6 +1,5 @@
 from cryptography.fernet import Fernet
 import hashlib
-import time
 import sys
 import os
 
